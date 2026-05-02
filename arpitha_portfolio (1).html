@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arpitha M | Expert Trainer & Educator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Kannada:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #010310;
+    --accent: #23a9bd;
+    --accent2: #0d6e80;
+    --gold: #f0c060;
+    --white: #f0f4ff;
+    --glass: rgba(35,169,189,0.08);
+    --glass-border: rgba(35,169,189,0.25);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: screen;
+  }
+  .cursor-trail {
+    width: 32px; height: 32px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.25s ease;
+    opacity: 0.5;
+  }
+
+  /* Canvas */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(1,3,16,0.7);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .hero-text { position: relative; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    animation: fadeSlideUp 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+    animation: fadeSlideUp 0.8s 0.1s ease both;
+  }
+  .hero-name .highlight {
+    color: var(--accent);
+    display: block;
+    -webkit-text-stroke: 0px;
+  }
+
+  .hero-kannada {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    font-size: 1rem;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    opacity: 0.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeSlideUp 0.8s 0.4s ease both;
+  }
+  .stat { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    animation: fadeSlideUp 0.8s 0.5s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(35,169,189,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--glass-border);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--glass);
+  }
+
+  /* HERO 3D CARD */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeSlideUp 0.8s 0.3s ease both;
+  }
+
+  .card-3d-wrapper {
+    perspective: 1000px;
+    width: 360px;
+    height: 460px;
+  }
+  .card-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+  }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(35,169,189,0.15), rgba(1,3,16,0.8));
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+  .card-face::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(35,169,189,0.2) 0%, transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(240,192,96,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .card-face-inner {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .card-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    margin: 0 auto 1.2rem;
+    background: linear-gradient(135deg, var(--accent2), var(--bg));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(35,169,189,0.4);
+  }
+  .card-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent), transparent, var(--gold), transparent, var(--accent));
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+  }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .card-sub {
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+  }
+  .card-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+  .card-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .chip {
+    background: rgba(35,169,189,0.15);
+    border: 1px solid rgba(35,169,189,0.3);
+    border-radius: 100px;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+  }
+
+  /* FLOATING ORBS */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatOrb 8s ease-in-out infinite;
+  }
+  .orb1 { width: 400px; height: 400px; background: rgba(35,169,189,0.12); top: -100px; right: -100px; animation-delay: 0s; }
+  .orb2 { width: 300px; height: 300px; background: rgba(240,192,96,0.06); bottom: 0; left: -50px; animation-delay: -3s; }
+  @keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, -30px); }
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ABOUT */
+  #about {
+    padding: 8rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .about-text p {
+    opacity: 0.72;
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+    font-size: 0.97rem;
+  }
+  .about-text .kannada-text {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    color: var(--gold);
+    opacity: 0.85;
+    font-size: 0.95rem;
+  }
+  .exp-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+  .exp-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .exp-card:hover {
+    border-color: var(--accent);
+    transform: translateX(5px);
+    background: rgba(35,169,189,0.12);
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+  .exp-years { font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .exp-place { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .exp-desc { font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+
+  /* COURSES */
+  #courses {
+    padding: 8rem 4rem;
+    background: linear-gradient(180deg, transparent, rgba(35,169,189,0.03), transparent);
+  }
+  .courses-inner { max-width: 1200px; margin: 0 auto; }
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .course-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transform-style: preserve-3d;
+  }
+  .course-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(35,169,189,0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .course-card:hover {
+    transform: translateY(-8px) rotateX(3deg);
+    border-color: var(--accent);
+    box-shadow: 0 20px 50px rgba(35,169,189,0.2);
+  }
+  .course-card:hover::before { opacity: 1; }
+  .course-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--accent2), rgba(35,169,189,0.3));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 20px rgba(35,169,189,0.25);
+  }
+  .course-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .course-kannada {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    font-size: 0.78rem;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.8rem;
+  }
+  .course-desc {
+    font-size: 0.82rem;
+    opacity: 0.6;
+    line-height: 1.65;
+  }
+  .course-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    background: rgba(35,169,189,0.1);
+    border: 1px solid rgba(35,169,189,0.2);
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  /* INTERNSHIP */
+  #internship {
+    padding: 8rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .intern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .intern-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+  .intern-info p {
+    opacity: 0.7;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  .intern-info .kannada-text {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    color: var(--gold);
+    font-size: 0.88rem;
+    opacity: 0.85;
+  }
+  .intern-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    transition: all 0.3s;
+  }
+  .feature:hover {
+    border-color: var(--accent);
+    background: rgba(35,169,189,0.1);
+  }
+  .feature-icon {
+    width: 36px; height: 36px; min-width: 36px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .feature-text { font-size: 0.85rem; opacity: 0.75; line-height: 1.5; }
+  .feature-text strong { display: block; color: var(--white); opacity: 1; margin-bottom: 0.2rem; font-size: 0.9rem; }
+
+  /* CONTACT */
+  #contact {
+    padding: 8rem 4rem;
+    background: linear-gradient(180deg, transparent, rgba(35,169,189,0.04));
+  }
+  .contact-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 4rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(35,169,189,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: rgba(1,3,16,0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+  .contact-item:hover {
+    border-color: var(--accent);
+    background: rgba(35,169,189,0.1);
+    transform: translateY(-2px);
+  }
+  .contact-item-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-item-text { text-align: left; }
+  .contact-item-label { font-size: 0.72rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em; }
+  .contact-item-value { font-size: 0.95rem; font-weight: 500; color: var(--white); }
+  .contact-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .contact-kannada {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    font-size: 0.95rem;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.34, 1.1, 0.64, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.75rem; }
+    #hero, #about, #courses, #internship, #contact { padding: 5rem 1.5rem; }
+    .hero-grid, .about-grid, .intern-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .card-3d-wrapper { width: 280px; height: 360px; }
+    .hero-stats { gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  /* Shimmer line decoration */
+  .shimmer-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--gold), var(--accent), transparent);
+    width: 200px;
+    margin: 1rem 0 2rem;
+    animation: shimmerMove 3s linear infinite;
+    background-size: 200%;
+  }
+  @keyframes shimmerMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Arpitha <span>M</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#internship">Internship</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-badge">Expert Trainer & Educator · Mysuru</div>
+      <h1 class="hero-name">
+        Arpitha<br>
+        <span class="highlight">M.</span>
+      </h1>
+      <p class="hero-kannada">ಡಿಜಿಟಲ್ ಕೌಶಲ್ಯ ತರಬೇತಿ ತಜ್ಞರು</p>
+      <p class="hero-desc">Software Skills Trainer & Digital Educator empowering students with practical, industry-ready skills across technology, finance & digital marketing.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num" data-count="400">0</div>
+          <div class="stat-label">Students Trained</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="5">0</div>
+          <div class="stat-label">Internship Programs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="3">0</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#courses" class="btn-primary">Explore Courses →</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="card-3d-wrapper" id="card3dWrapper">
+        <div class="card-3d" id="card3d">
+          <div class="card-face">
+            <div class="card-face-inner">
+              <div class="card-avatar">👩‍🏫</div>
+              <div class="card-title">Arpitha M.</div>
+              <div class="card-sub">Expert Trainer / Educator</div>
+              <div class="card-location">📍 Mysuru, Karnataka</div>
+              <div class="card-chips">
+                <span class="chip">MS Office</span>
+                <span class="chip">Tally ERP</span>
+                <span class="chip">Digital Marketing</span>
+                <span class="chip">Finance</span>
+                <span class="chip">HR</span>
+                <span class="chip">Canva</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">Who I Am</div>
+    <h2 class="section-title">Passionate About<br>Practical Learning</h2>
+    <div class="shimmer-line"></div>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm Arpitha M, a dedicated Software Skills Trainer and Digital Educator based in Mysuru, Karnataka. Over 3 years, I've helped 400+ students gain real, job-ready skills through structured, hands-on training.</p>
+      <p>My focus is simple: teach what works in the real world. From Computer Basics to Advanced Excel, Digital Marketing to Tally ERP — every course is designed to give students confidence and competence.</p>
+      <p class="kannada-text">ನಾನು ಪ್ರಾಯೋಗಿಕ ಕಲಿಕೆಯ ಮೂಲಕ ವಿದ್ಯಾರ್ಥಿಗಳ ಜೀವನ ಬದಲಿಸಲು ಬದ್ಧಳಾಗಿದ್ದೇನೆ.</p>
+    </div>
+    <div class="exp-cards">
+      <div class="exp-card">
+        <div class="exp-years">2022 — 2024</div>
+        <div class="exp-place">KTM Institute of Technology & Multimedia</div>
+        <div class="exp-desc">Delivered structured training in Computer Basics, Microsoft Office, and Tally ERP 9. Designed training materials and mentored learners.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-years">2024 — 2026</div>
+        <div class="exp-place">TechnoTut Solutions LLP</div>
+        <div class="exp-desc">Facilitated internship programs in Digital Marketing & Finance. Mentored students through real-time projects and campaign execution.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="courses-inner">
+    <div class="reveal">
+      <div class="section-label">What I Teach</div>
+      <h2 class="section-title">Courses Offered</h2>
+      <p style="opacity:0.6; margin-top:0.5rem; font-size:0.9rem;">ಕೋರ್ಸ್‌ಗಳು · <span style="font-family:'Noto Sans Kannada',sans-serif; color: var(--gold);">ಪ್ರಾಯೋಗಿಕ ಕೌಶಲ್ಯ ಅಭಿವೃದ್ಧಿ</span></p>
+      <div class="shimmer-line"></div>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card reveal">
+        <div class="course-icon">💻</div>
+        <div class="course-name">Basic Computer</div>
+        <div class="course-kannada">ಬೇಸಿಕ್ ಕಂಪ್ಯೂಟರ್</div>
+        <div class="course-desc">Fundamentals of computing, MS Windows, typing, internet usage and digital literacy for beginners.</div>
+        <span class="course-tag">Beginner</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">📊</div>
+        <div class="course-name">Microsoft Office</div>
+        <div class="course-kannada">ಮೈಕ್ರೋಸಾಫ್ಟ್ ಕೋರ್ಸ್</div>
+        <div class="course-desc">Word, Excel, PowerPoint and Outlook — complete professional suite training with real-world exercises.</div>
+        <span class="course-tag">All Levels</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">📈</div>
+        <div class="course-name">Advanced Excel</div>
+        <div class="course-kannada">ಅಡ್ವಾನ್ಸ್ಡ್ ಎಕ್ಸೆಲ್</div>
+        <div class="course-desc">VLOOKUP, pivot tables, macros, dashboards and data analysis for business professionals.</div>
+        <span class="course-tag">Intermediate</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">🧮</div>
+        <div class="course-name">Tally ERP / Tally Prime</div>
+        <div class="course-kannada">ಟ್ಯಾಲಿ ERP</div>
+        <div class="course-desc">Accounts, inventory, GST billing, payroll and financial reporting using Tally ERP 9 and Tally Prime.</div>
+        <span class="course-tag">Professional</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">💰</div>
+        <div class="course-name">Finance Course</div>
+        <div class="course-kannada">ಫೈನಾನ್ಸ್ ಕೋರ್ಸ್</div>
+        <div class="course-desc">Financial concepts, budgeting, investment basics and practical finance skills for careers and business.</div>
+        <span class="course-tag">Career</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">📣</div>
+        <div class="course-name">Digital Marketing</div>
+        <div class="course-kannada">ಡಿಜಿಟಲ್ ಮಾರ್ಕೆಟಿಂಗ್</div>
+        <div class="course-desc">SEO, social media, Google Ads, content marketing and campaign management with live project work.</div>
+        <span class="course-tag">Industry-Ready</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">👥</div>
+        <div class="course-name">Human Resources</div>
+        <div class="course-kannada">ಮಾನವ ಸಂಪನ್ಮೂಲ</div>
+        <div class="course-desc">HR fundamentals, recruitment, payroll, employee management and workplace regulations.</div>
+        <span class="course-tag">Professional</span>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-icon">🎨</div>
+        <div class="course-name">Canva & Wix Studio</div>
+        <div class="course-kannada">ಕ್ಯಾನ್ವಾ ಕೋರ್ಸ್</div>
+        <div class="course-desc">Graphic design with Canva and professional website building with Wix Studio — zero coding needed.</div>
+        <span class="course-tag">Creative</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTERNSHIP -->
+<section id="internship">
+  <div class="reveal">
+    <div class="section-label">Hands-On Programs</div>
+    <h2 class="section-title">Internship Programs</h2>
+    <div class="shimmer-line"></div>
+  </div>
+  <div class="intern-grid">
+    <div class="intern-info reveal">
+      <h3>Learn by Doing</h3>
+      <p>5+ internship programs conducted with real-time project experience. Students work on live campaigns, financial analysis, and industry simulations to build confidence before entering the job market.</p>
+      <p class="kannada-text">ವಿದ್ಯಾರ್ಥಿಗಳು ನೈಜ ಯೋಜನೆಗಳಲ್ಲಿ ಕೆಲಸ ಮಾಡಿ ಉದ್ಯಮಕ್ಕೆ ಸಿದ್ಧರಾಗುತ್ತಾರೆ.</p>
+      <br>
+      <a href="#contact" class="btn-primary">Apply for Internship →</a>
+    </div>
+    <div class="intern-features reveal">
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-text">
+          <strong>Real-World Projects</strong>
+          Live campaigns and financial simulations with actual outcomes.
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📜</div>
+        <div class="feature-text">
+          <strong>Certificate Provided</strong>
+          Industry-recognized completion certificate for every intern.
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-text">
+          <strong>Mentorship</strong>
+          Personal guidance throughout the internship period.
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚀</div>
+        <div class="feature-text">
+          <strong>Job-Ready Skills</strong>
+          Focused on skills employers actually demand.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Start Learning Today</h2>
+    </div>
+    <div class="contact-card reveal">
+      <div class="contact-tagline">Ready to Grow Your Skills?</div>
+      <p class="contact-kannada">ನಿಮ್ಮ ಕೌಶಲ್ಯ ಅಭಿವೃದ್ಧಿ ಪ್ರಯಾಣ ಇಂದೇ ಪ್ರಾರಂಭಿಸಿ</p>
+      <div class="contact-methods">
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">learnwisely1@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Phone / WhatsApp</div>
+            <div class="contact-item-value">+91 9482843836</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-value">Mysuru, Karnataka</div>
+          </div>
+        </div>
+      </div>
+      <a href="mailto:learnwisely1@gmail.com" class="btn-primary" style="font-size:0.95rem; padding:1rem 2.5rem;">Send a Message →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Arpitha M · Expert Trainer & Educator</div>
+  <div style="font-family:'Noto Sans Kannada',sans-serif; font-size:0.75rem;">ಮೈಸೂರು, ಕರ್ನಾಟಕ</div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 6 + 'px';
+  cursor.style.top = my - 6 + 'px';
+});
+function animateTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.left = tx - 16 + 'px';
+  trail.style.top = ty - 16 + 'px';
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+// 3D Card
+const wrapper = document.getElementById('card3dWrapper');
+const card = document.getElementById('card3d');
+wrapper.addEventListener('mousemove', e => {
+  const rect = wrapper.getBoundingClientRect();
+  const cx = (e.clientX - rect.left) / rect.width - 0.5;
+  const cy = (e.clientY - rect.top) / rect.height - 0.5;
+  card.style.transform = `rotateY(${cx * 20}deg) rotateX(${-cy * 20}deg)`;
+});
+wrapper.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+});
+
+// Canvas BG
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initParticles();
+});
+const particles = [];
+function initParticles() {
+  particles.length = 0;
+  const count = Math.floor(window.innerWidth / 12);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+}
+initParticles();
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let p of particles) {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(35,169,189,${p.alpha})`;
+    ctx.fill();
+  }
+  // Connect nearby
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(35,169,189,${0.06 * (1 - d/100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// Scroll Reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// Count Up
+function countUp(el, target) {
+  let current = 0;
+  const isLarge = target > 10;
+  const increment = isLarge ? Math.ceil(target / 60) : 1;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = current + (isLarge ? '+' : '+');
+  }, 30);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('[data-count]');
+      nums.forEach(n => countUp(n, parseInt(n.dataset.count)));
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const statsEl = document.querySelector('.hero-stats');
+if (statsEl) counterObs.observe(statsEl);
+</script>
+</body>
+</html>
